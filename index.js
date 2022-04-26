@@ -1,4 +1,4 @@
-const requested = []
+let requested = []
 
 const menuBtn = document.querySelectorAll('.menu button')
 const listContainer = document.querySelector('.task .list-container')
@@ -39,7 +39,7 @@ function updateArray() {
             <div class="list">
                 <div class="left">
                     <h1>${filterArray[i]}</h1>
-                    <button>remove</button>
+                    <button class="remove-btn">remove</button>
                 </div>
                 <p><span>$</span>${price}</p>
             </div>
@@ -47,6 +47,15 @@ function updateArray() {
     }
     total.textContent = sum
     listContainer.innerHTML = listsDom
+
+    const removeBtn = document.querySelectorAll('.remove-btn')
+    removeBtn.forEach(btn => {
+        btn.addEventListener('click', e => {
+            const value = e.currentTarget.previousSibling.previousSibling.textContent
+            requested = requested.filter(item => item !== value)
+            updateArray()
+        })
+    })
 }
 
 function uniq(requested) {
